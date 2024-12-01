@@ -44,42 +44,35 @@ int main() {
 
                 if (userMgr.validateLogin(username, password)) {
                     ui.showMessage("Login successful!");
-                   do {
-                    
-                     cout << createLine('=', 50) << endl;
-                     cout << centerText("Rental Management System", 50) << endl;
-                     cout << createLine('=', 50) << endl;
-                     cout << "1. Display Rental Agreements" << endl;
-                     cout << "2. Check Expired Rentals" << endl;
-                     cout << "3. Display Rental History" << endl;
-                     cout << "4. Exit" << endl;
-                     cout << createLine('-', 50) << endl;
-                     cout << "Enter your choice: ";
-                    cin >> choice;
 
-                 switch (choice) {
-                   case 1:
-                  rentalManager.displayRentalAgreements();
-                    break;
-                 case 2:
-                  rentalManager.checkExpiredRentals();
-                    break;
-                 case 3:
-                  rentalManager.displayRentalHistory();
-                    break;
-                 case 4:
-                  cout << createLine('=', 50) << endl;
-                  cout << "Exiting Rental Management System\n";
-                 cout << createLine('=', 50) << endl;
-                 break;
+                    int rentalMenuChoice;
+                    do {
+                        ui.showRentalManagementMenu();
+                        if (!(cin >> rentalMenuChoice)) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            ui.showMessage("Invalid input. Please enter a number.");
+                            continue;
+                        }
 
-                 default:
-                 cout << "Invalid choice. Please try again.\n";
-                 }
+                        switch (rentalMenuChoice) {
+                            case 1:
+                                rentalManager.displayRentalAgreements();
+                                break;
+                            case 2:
+                                rentalManager.checkExpiredRentals();
+                                break;
+                            case 3:
+                                rentalManager.displayRentalHistory();
+                                break;
+                            case 4:
+                                ui.showMessage("Exiting and returning to main menu...");
+                                break;
+                            default:
+                                ui.showMessage("Invalid choice. Please try again.");
+                        }
+                    } while (rentalMenuChoice != 4); // Loop until the user chooses to log out (option 4)
 
-               } while (choice != 4);
-
-                    
                 } else {
                     ui.showMessage("Login failed!");
                 }
