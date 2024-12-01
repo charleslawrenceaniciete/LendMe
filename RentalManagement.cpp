@@ -63,27 +63,69 @@ void RentalManagement::displayRentalAgreements() { //Shows all the rental agreem
     }
 }
 
-void RentalManagement::checkExpiredRentals() { //Checks if any of the rentals have exceeded their duration and prints a message for expired ones.
-    time_t now = getCurrentDate();
-    for (auto& agreement : rentalAgreements) {
-        if (now >= agreement.rentDate + agreement.duration * 86400) {
-            cout << "Rental for item '" << agreement.itemName << "' has expired.\n";  
+void RentalManagement::checkExpiredRentals() {
+    if (rentalAgreements.empty()) {  // Check if there are any rental agreements
+        cout << "No rental agreements found.\n";
+        return;
+    }
+
+    time_t now = getCurrentDate();  // Get the current system time
+    bool expiredFound = false;      // Flag to track if any expired rentals are found
+
+    cout << "\nExpired Rentals:\n";
+
+    for (const auto& agreement : rentalAgreements) {
+        time_t rentalEndDate = agreement.rentDate + agreement.duration * 86400; // Calculate rental end date
+        string expirationDate = formatDate(rentalEndDate);
+
+        if (now >= rentalEndDate) {
+            expiredFound = true;  // Set the flag to true if an expired rental is found
+
+            // Display the expired rental in the specified format
+            cout << "You borrowed " << agreement.itemName 
+                 << " from " << agreement.rentedBy 
+                 << ". It has expired. (" << expirationDate << ")\n";
+
+            cout << "You lended " << agreement.itemName 
+                 << " to " << agreement.rentedBy 
+                 << ". It has expired. (" << expirationDate << ")\n\n";
         }
+    }
+
+    if (!expiredFound) {  // If no expired rentals were found, display a message
+        cout << "No expired rentals found.\n";
     }
 }
 
-void RentalManagement::displayRentalHistory() { // Displays a history of all past rentals from the file.
+
+
+void RentalManagement::displayRentalHistory() {
     ifstream file(DATA_FILE);
     if (file.is_open()) {
         cout << "\nRental History:\n";
-        string line;
-        while (getline(file, line)) {
-            cout << line << endl;
+
+        string itemName, rentedBy;
+        time_t rentDate;
+        int duration;
+
+        while (getline(file, itemName)) {
+            getline(file, rentedBy);
+            file >> rentDate >> duration;
+            file.ignore();  // Ignore the newline character after the duration
+
+            string formattedRentDate = formatDate(rentDate);
+            string formattedEndDate = formatDate(rentDate + duration * 86400);
+
+            cout << "You borrowed " << itemName << " from " << rentedBy
+                 << ". It was returned on " << formattedEndDate << ".\n";
+            cout << "You lended " << itemName << " to " << rentedBy
+                 << ". It has been returned on " << formattedEndDate << ".\n\n";
         }
         file.close();
     } else {
         cout << "No rental history available.\n";
     }
 }
+
 #include "RentalManagement.h"
 
