@@ -25,6 +25,18 @@ void UIManager::showLoginMenu() {
     cout << "Please enter your username and password.\n";
     std::cout << RESET_COLOR; 
 }
+void UIManager::showRentalManagementMenu() {
+    const string ORANGE_COLOR = "\033[38;5;202m";  
+    const string RESET_COLOR = "\033[0m";        
+    cout << ORANGE_COLOR; 
+    cout << createLine('=', 53) << endl; 
+    cout << centerText("Rental Management Menu", 53) << endl;  
+    cout << createLine('=', 53) << endl;
+    cout << RESET_COLOR; 
+
+    cout << "1. View Rental Agreements\n2. Check Expired Rentals\n3. View Rental History\n4. Return\n";
+}
+
 
 void UIManager::showRegistrationMenu() {
     const std::string ORANGE_COLOR = "\033[38;5;202m";  
@@ -58,6 +70,10 @@ void UIManager::showMessage(const string& message) {
     cout << createLine('*', 53) << endl;
     std::cout << RESET_COLOR; 
 }
+
+
+
+
 
 void UIManager::clearScreen() {
     #ifdef _WIN32
