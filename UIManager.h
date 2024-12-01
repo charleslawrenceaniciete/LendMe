@@ -14,6 +14,7 @@ public:
     void showForgotPasswordMenu();
     void showMessage(const string& message);
     void clearScreen();
+    void showRentalManagementMenu();
 };
 
 #endif
