@@ -61,7 +61,7 @@ private:
     // Top up the balance (input amount)
     void topUpMenu() {
         double amount;
-        cout << "Enter the amount to top up: PHP";
+        cout << "Enter the amount to top up: PHP ";
         cin >> amount;
         if (cin.fail()) {
             cin.clear();

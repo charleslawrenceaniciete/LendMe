@@ -138,7 +138,7 @@ void ItemListing::borrowItem(PaymentSimulation &payment) {
             cout << "\nSorry, the item is already borrowed.\n";
         }
     } else {
-        cout << "\nYou do not have enough balance to borrow this item.\n";
+        cout << "\nThank you for supporting LendMe!\n";
     }
 }
 
