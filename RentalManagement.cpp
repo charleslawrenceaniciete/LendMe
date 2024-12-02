@@ -64,10 +64,6 @@ void RentalManagement::displayRentalAgreements() { //Shows all the rental agreem
 }
 
 void RentalManagement::checkExpiredRentals() {
-    if (rentalAgreements.empty()) {  // Check if there are any rental agreements
-        cout << "No rental agreements found.\n";
-        return;
-    }
 
     time_t now = getCurrentDate();  // Get the current system time
     bool expiredFound = false;      // Flag to track if any expired rentals are found
