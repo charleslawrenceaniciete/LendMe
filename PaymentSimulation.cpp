@@ -14,7 +14,7 @@ void PaymentSimulation::topUpBalance(double amount) {
         balance += amount;
         // Add transaction to history
         transactions.push_back("Topped up: " + to_string(amount));
-        cout << "Successfully topped up " << fixed << setprecision(2) << amount << " to your account.\n";
+        cout << "Successfully topped up PHP " << fixed << setprecision(2) << amount << " to your account.\n";
     } else {
         cout << "Invalid amount! Top-up must be greater than zero.\n";
     }
@@ -22,7 +22,7 @@ void PaymentSimulation::topUpBalance(double amount) {
 
 // Method to view current balance
 void PaymentSimulation::viewBalance() const {
-    cout << "Your current balance is: $" << fixed << setprecision(2) << balance << "\n";
+    cout << "Your current balance is: PHP " << fixed << setprecision(2) << balance << "\n";
 }
 
 // Method to use balance for borrowing an item
